@@ -6,7 +6,8 @@ using namespace std;
 int main()
 {
     Sudoku sudoku;
-    cout << "\nBefore solving" << endl;
+    cout << endl
+         << "Before solving" << endl;
     sudoku.PrintBoard();
 
     auto startTime = std::chrono::high_resolution_clock::now();
@@ -15,13 +16,14 @@ int main()
 
     if (isSolved)
     {
-        cout << "\nAfter solving" << endl;
+        cout << endl
+             << "After solving" << endl;
         sudoku.PrintBoard();
     }
     else //unsolvable board
         cout << "The board is unsolvable" << endl;
 
-    sudoku.PrintSolveTime(startTime, endTime);
+    Sudoku::PrintSolveTime(startTime, endTime);
 
     system("Pause");
     return 0;

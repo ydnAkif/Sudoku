@@ -21,10 +21,10 @@ private:
 public:
     Sudoku();
     ~Sudoku();
-    void PrintSolveTime(std::chrono::high_resolution_clock::time_point startTime,
-                        std::chrono::high_resolution_clock::time_point endTime);
+    static void PrintSolveTime(std::chrono::high_resolution_clock::time_point ,
+                               std::chrono::high_resolution_clock::time_point );
     void PrintBoard();
-    SquarePosition GetUnfilledPosition();
-    bool CanNumberBeInserted(int number, int currentRow, int currentCol);
+    SquarePosition GetEmptyPosition();
+    bool IsValid(int , int , int );
     bool Solve();
 };

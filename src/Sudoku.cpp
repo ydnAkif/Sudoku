@@ -1,25 +1,24 @@
 #include "Sudoku.hpp"
-
 Sudoku::Sudoku()
 {
-    board = {{0, 2, 0, 0, 0, 0, 0, 0, 0},
-             {0, 0, 0, 6, 0, 0, 0, 0, 3},
-             {0, 7, 4, 0, 8, 0, 0, 0, 0},
-             {0, 0, 0, 0, 0, 3, 0, 0, 2},
-             {0, 8, 0, 0, 4, 0, 0, 1, 0},
-             {6, 0, 0, 5, 0, 0, 0, 0, 0},
-             {0, 0, 0, 0, 1, 0, 7, 8, 0},
-             {5, 0, 0, 0, 0, 9, 0, 0, 0},
-             {0, 0, 0, 0, 0, 0, 0, 4, 0}};
+    board = {{0, 9, 0, 6, 3, 0, 0, 1, 0},
+             {0, 0, 0, 0, 7, 5, 6, 0, 0},
+             {0, 0, 0, 9, 0, 0, 5, 7, 0},
+             {0, 8, 1, 0, 0, 6, 0, 0, 0},
+             {0, 0, 0, 1, 0, 0, 0, 0, 2},
+             {0, 0, 0, 8, 0, 0, 1, 0, 0},
+             {2, 0, 6, 0, 0, 0, 4, 0, 0},
+             {4, 0, 0, 0, 6, 0, 7, 8, 0},
+             {5, 0, 0, 0, 0, 9, 0, 0, 0}};
     rowLen = board.size();
     colLen = board[0].size();
     gridHeight = 3;
     gridWidth = 3;
     numberChoices = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 }
-Sudoku::~Sudoku() {}
+Sudoku::~Sudoku() = default;
 
-void Sudoku::PrintSolveTime(std::chrono::high_resolution_clock::time_point startTime,
+void  Sudoku::PrintSolveTime(std::chrono::high_resolution_clock::time_point startTime,
                             std::chrono::high_resolution_clock::time_point endTime)
 {
     auto timeTakenInSeconds = std::chrono::duration_cast<std::chrono::seconds>(
@@ -29,7 +28,7 @@ void Sudoku::PrintSolveTime(std::chrono::high_resolution_clock::time_point start
                                        endTime - startTime)
                                        .count();
     std::cout << "\nTime taken to solve : " << timeTakenInSeconds << "."
-              << timeTakenInMilliSeconds % long(1E+3) << " seconds";
+              << timeTakenInMilliSeconds % long(1E+3) << " seconds" << std::endl;
 }
 
 void Sudoku::PrintBoard()
@@ -51,7 +50,7 @@ void Sudoku::PrintBoard()
     std::cout << "+-------+-------+-------+" << std::endl;
 }
 
-SquarePosition Sudoku::GetUnfilledPosition()
+SquarePosition Sudoku::GetEmptyPosition()
 {
     SquarePosition square;
     for (int row = 0; row < rowLen; ++row)
@@ -69,7 +68,7 @@ SquarePosition Sudoku::GetUnfilledPosition()
     return square;
 }
 
-bool Sudoku::CanNumberBeInserted(int number, int currentRow, int currentCol)
+bool Sudoku::IsValid(int number, int currentRow, int currentCol)
 {
     // check if number already exists in any other column in the same row
     for (int col = 0; col < colLen; ++col)
@@ -101,20 +100,23 @@ bool Sudoku::CanNumberBeInserted(int number, int currentRow, int currentCol)
 
 bool Sudoku::Solve()
 {
-    SquarePosition unfilledPosition = GetUnfilledPosition();
-    if (unfilledPosition.rowPosition == -1 ||
-        unfilledPosition.colPosition == -1) // if no square is empty it means board is solved
+    SquarePosition emptyPosition = GetEmptyPosition();
+    // if no square is empty it means board is solved
+
+    if (emptyPosition.rowPosition == -1 ||
+        emptyPosition.colPosition == -1)
         return true;
-    int currentRow = unfilledPosition.rowPosition,
-        currentCol = unfilledPosition.colPosition;
-    for (int number : numberChoices)
+    int currentRow = emptyPosition.rowPosition,
+        currentCol = emptyPosition.colPosition;
+    for (auto number : numberChoices)
     {
-        if (CanNumberBeInserted(number, currentRow, currentCol))
+        if (IsValid(number, currentRow, currentCol))
         {
             board[currentRow][currentCol] = number;
             if (Solve())
                 return true;
-            // the board was unable to be solved at some point so reset all values till last solved position
+            // the board was unable to be solved at some point
+            // so reset all values till last solved position
             board[currentRow][currentCol] = 0;
         }
     }
