@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build",
             "windows": {
-                "program": "${workspaceFolder}/build/MachineLanguageProgramming.exe",
+                "program": "${workspaceFolder}/build/Sudoku.exe",
                 "miDebuggerPath": "gdb.exe"
             },
             "args": [],

@@ -23,5 +23,6 @@ int main()
 
     sudoku.PrintSolveTime(startTime, endTime);
 
+    system("Pause");
     return 0;
 }
