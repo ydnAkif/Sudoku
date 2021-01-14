@@ -3,13 +3,11 @@
 #include <chrono>
 #include <array>
 
-struct SquarePosition
-{
+struct SquarePosition {
     int rowPosition = -1, colPosition = -1;
 };
 
-class Sudoku
-{
+class Sudoku {
 private:
     std::vector<std::vector<int>> board{};
     int rowLen;
@@ -20,11 +18,17 @@ private:
 
 public:
     Sudoku();
+
     ~Sudoku();
-    void PrintSolveTime(std::chrono::high_resolution_clock::time_point startTime,
-                        std::chrono::high_resolution_clock::time_point endTime);
+
+    static void PrintSolveTime(std::chrono::high_resolution_clock::time_point,
+                               std::chrono::high_resolution_clock::time_point);
+
     void PrintBoard();
-    SquarePosition GetUnfilledPosition();
-    bool CanNumberBeInserted(int number, int currentRow, int currentCol);
+
+    SquarePosition GetEmptyPosition();
+
+    bool IsValid(int, int, int);
+
     bool Solve();
 };

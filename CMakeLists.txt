@@ -11,11 +11,11 @@ set(PROJECT_SOURCE_DIR ${PROJECT_DIR}/src)
 set(PROJECT_SOURCES
         ${PROJECT_SOURCE_DIR}/main.cpp
         ${PROJECT_SOURCE_DIR}/Sudoku.cpp
-    )
+        )
 
 set(PROJECT_HEADERS
-        ${PROJECT_INCLUDE_DIR}/Sudoku.cpp
-    )
+        ${PROJECT_INCLUDE_DIR}/Sudoku.hpp
+        )
 
 include_directories(${PROJECT_INCLUDE_DIR})
 
