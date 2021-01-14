@@ -3,22 +3,25 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     Sudoku sudoku;
-    cout << endl << "Before solving" << endl;
+    cout << "\nBefore solving" << endl;
     sudoku.PrintBoard();
 
     auto startTime = std::chrono::high_resolution_clock::now();
     bool isSolved = sudoku.Solve();
     auto endTime = std::chrono::high_resolution_clock::now();
 
-    if (isSolved) {
-        cout << endl << "After solving" << endl;
+    if (isSolved)
+    {
+        cout << "\nAfter solving" << endl;
         sudoku.PrintBoard();
-    } else //unsolvable board
+    }
+    else //unsolvable board
         cout << "The board is unsolvable" << endl;
 
-    Sudoku::PrintSolveTime(startTime, endTime);
+    sudoku.PrintSolveTime(startTime, endTime);
 
     system("Pause");
     return 0;
